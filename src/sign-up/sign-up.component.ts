@@ -1,13 +1,14 @@
 import { AsyncPipe, JsonPipe, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
+  AbstractControl,
   FormControl,
   FormGroup,
-  ReactiveFormsModule,
+  ReactiveFormsModule, ValidationErrors, ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { map, startWith, tap } from 'rxjs';
-import {SignUpForm, SignUpFormValue} from './sign-up-form';
+import {filter, map, startWith} from 'rxjs';
+import {PasswordConfirmForm, ProfileForm, SignUpForm, SignUpFormValue} from './sign-up-form';
 
 @Component({
   selector: 'app-sign-up',
@@ -18,7 +19,7 @@ import {SignUpForm, SignUpFormValue} from './sign-up-form';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignUpComponent {
-  readonly loginForm = new FormGroup<SignUpForm>({
+  readonly signUpForm = new FormGroup<SignUpForm>({
     email: new FormControl('', {
       nonNullable: true,
       validators: [Validators.required, Validators.email],
@@ -27,20 +28,47 @@ export class SignUpComponent {
       nonNullable: true,
       validators: [Validators.required],
     }),
+    confirmPassword: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    profile: new FormGroup<ProfileForm>({
+      firstName: new FormControl('', {
+        nonNullable: true,
+        validators: [Validators.required],
+      }),
+      lastName: new FormControl(null, {
+        validators: [],
+      }),
+      birthDate: new FormControl<Date|null>(null, {
+        validators: [Validators.required],
+      })
+    })
+  }, {
+    validators: [this.passwordMatchValidator()]
   });
 
-  readonly loginFormValue$ = this.loginForm.valueChanges.pipe(
-    startWith(this.loginForm.getRawValue()),
+  passwordMatchValidator(): ValidatorFn {
+    return (control: AbstractControl<PasswordConfirmForm>): ValidationErrors | null => {
+      const controlValue = control.getRawValue();
+      const forbidden = controlValue.password !== controlValue.confirmPassword;
+      return forbidden ? {passwordMatch: true} : null;
+    };
+  }
+
+  readonly loginFormValue$ = this.signUpForm.valueChanges.pipe(
+    startWith(this.signUpForm.getRawValue()),
+    filter((x): x is Partial<SignUpFormValue> => x !== undefined),
     // startWith({ email: '' }),
     // tap((x) => console.log(x)),
-    map((x) => this.mapToObfuscatedLoginFormValue(x))
+    map((x) => this.mapToObfuscatedPassword(x))
   );
 
-  private mapToObfuscatedLoginFormValue(
+  private mapToObfuscatedPassword(
     formValue: Partial<SignUpFormValue>
   ) {
     return {
-      email: formValue.email ?? '',
+      ...formValue,
       password: this.obfuscatePassword(formValue.password ?? ''),
     };
   }
@@ -50,6 +78,6 @@ export class SignUpComponent {
   }
 
   onSubmit() {
-    console.warn(this.loginForm.value);
+    console.warn(this.signUpForm.value);
   }
 }

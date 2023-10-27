@@ -1,35 +1,64 @@
 <h1>Login:</h1>
 
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
   <div>
     <label for="email">Email: </label>
     <input id="email" type="text" formControlName="email" />
     <p
       *ngIf="
-        loginForm.controls.email.touched && loginForm.controls.email.errors
+        signUpForm.controls.email.touched && signUpForm.controls.email.errors
       "
       class="error"
     >
-      Error: {{ loginForm.controls.email.errors | json }}
+      Error: {{ signUpForm.controls.email.errors | json }}
     </p>
   </div>
 
   <div>
-    <label for="password">Password: </label>
-    <input id="password" type="text" formControlName="password" />
-    <p
-      *ngIf="
-        loginForm.controls.password.touched &&
-        loginForm.controls.password.errors
+    <div>
+      <label for="password">Password: </label>
+      <input id="password" type="text" formControlName="password" />
+      <p
+              *ngIf="
+        signUpForm.controls.password.touched &&
+        signUpForm.controls.password.errors
       "
-      class="error"
+              class="error"
+      >
+        Error: {{ signUpForm.controls.password.errors | json }}
+      </p>
+    </div>
+
+    <div>
+      <label for="confirmPassword">Confirm Password: </label>
+      <input id="confirmPassword" type="text" formControlName="confirmPassword" />
+      <p
+              *ngIf="
+        signUpForm.controls.confirmPassword.touched &&
+        signUpForm.controls.confirmPassword.errors
+      "
+              class="error"
+      >
+        Error: {{ signUpForm.controls.confirmPassword.errors | json }}
+      </p>
+    </div>
+
+    <p
+            *ngIf="
+        signUpForm.controls.password.touched &&
+        signUpForm.controls.confirmPassword.touched &&
+        signUpForm.errors?.['passwordMatch']
+      "
+            class="error"
     >
-      Error: {{ loginForm.controls.password.errors | json }}
+      Error: {{ signUpForm.errors | json }}
     </p>
+
+<!--  TODO: Add rest of form  -->
   </div>
 
   <p>Complete the form to enable button.</p>
-  <button type="submit" [disabled]="!loginForm.valid">Submit</button>
+  <button type="submit" [disabled]="!signUpForm.valid">Submit</button>
 </form>
 
 <hr />
