@@ -7,18 +7,18 @@ import {
   Validators,
 } from '@angular/forms';
 import { map, startWith, tap } from 'rxjs';
-import {LoginForm, LoginFormValue} from './login-form';
+import {SignUpForm, SignUpFormValue} from './sign-up-form';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  selector: 'app-sign-up',
+  templateUrl: './sign-up.component.html',
+  styleUrls: ['./sign-up.component.css'],
   imports: [ReactiveFormsModule, AsyncPipe, JsonPipe, NgIf],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent {
-  readonly loginForm = new FormGroup<LoginForm>({
+export class SignUpComponent {
+  readonly loginForm = new FormGroup<SignUpForm>({
     email: new FormControl('', {
       nonNullable: true,
       validators: [Validators.required, Validators.email],
@@ -37,7 +37,7 @@ export class LoginComponent {
   );
 
   private mapToObfuscatedLoginFormValue(
-    formValue: Partial<LoginFormValue>
+    formValue: Partial<SignUpFormValue>
   ) {
     return {
       email: formValue.email ?? '',
