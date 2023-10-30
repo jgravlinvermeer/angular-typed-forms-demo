@@ -55,7 +55,8 @@
               "browserTarget": "angular-typed-forms-demo:build:production"
             },
             "development": {
-              "browserTarget": "angular-typed-forms-demo:build:development"
+              "browserTarget": "angular-typed-forms-demo:build:development",
+              "port": 4201
             }
           },
           "defaultConfiguration": "development"

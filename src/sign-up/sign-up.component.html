@@ -101,14 +101,12 @@
       <p>Complete the form to enable button.</p>
       <button [disabled]="signUpForm.invalid" type="submit">Submit</button>
     </form>
-  </section>
 
-  <hr />
-
-  <section>
-    <header>
-      <h2>Form Value:</h2>
-    </header>
-    <pre><samp>{{ signUpFormValue$ | async | json }}</samp></pre>
+    <aside>
+      <header>
+        <h2>Form Value:</h2>
+      </header>
+      <pre><samp>{{ signUpFormValue$ | async | json }}</samp></pre>
+    </aside>
   </section>
 </main>
