@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   AbstractControl,
+  ReactiveFormsModule,
   UntypedFormControl,
   UntypedFormGroup,
-  ReactiveFormsModule,
   ValidationErrors,
   ValidatorFn,
   Validators,
@@ -86,6 +86,4 @@ export class UntypedSignUpComponent {
   private obfuscatePassword(password: string) {
     return password.replace(/./g, '*');
   }
-
-  protected readonly UntypedFormGroup = UntypedFormGroup;
 }
