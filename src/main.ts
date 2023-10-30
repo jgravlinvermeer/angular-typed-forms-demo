@@ -8,9 +8,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
   selector: 'my-app',
   standalone: true,
   imports: [CommonModule, SignUpComponent],
-  template: `
-    <app-sign-up></app-sign-up>
-  `,
+  template: ` <app-sign-up></app-sign-up> `,
 })
 export class App {
   name = 'Angular';
