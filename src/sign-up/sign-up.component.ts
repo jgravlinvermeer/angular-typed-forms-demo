@@ -55,6 +55,7 @@ export class SignUpComponent {
       validators: [this.passwordMatchValidator()],
     },
   );
+
   readonly signUpFormValue$ = this.signUpForm.valueChanges.pipe(
     startWith(this.signUpForm.getRawValue()),
     filter((x): x is Partial<SignUpFormValue> => x !== undefined),

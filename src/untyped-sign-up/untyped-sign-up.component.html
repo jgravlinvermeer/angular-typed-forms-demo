@@ -1,1 +1,80 @@
-<p>untyped-sign-up works!</p>
+<header>
+  <h1>Sign up:</h1>
+</header>
+
+<main>
+  <section>
+    <form (ngSubmit)="onSubmit()" [formGroup]="signUpForm">
+      <div>
+        <label for="email">Email: </label>
+        <input formControlName="email" id="email" type="text" />
+        <p
+          *ngIf="
+            signUpForm.controls.email.touched &&
+            signUpForm.controls.email.errors
+          "
+          class="error"
+        >
+          Error: {{ signUpForm.controls.email.errors | json }}
+        </p>
+      </div>
+
+      <div>
+        <div>
+          <label for="password">Password: </label>
+          <input formControlName="password" id="password" type="text" />
+          <p
+            *ngIf="
+              signUpForm.controls.password.touched &&
+              signUpForm.controls.password.errors
+            "
+            class="error"
+          >
+            Error: {{ signUpForm.controls.password.errors | json }}
+          </p>
+        </div>
+
+        <div>
+          <label for="confirmPassword">Confirm Password: </label>
+          <input
+            formControlName="confirmPassword"
+            id="confirmPassword"
+            type="text"
+          />
+          <p
+            *ngIf="
+              signUpForm.controls.confirmPassword.touched &&
+              signUpForm.controls.confirmPassword.errors
+            "
+            class="error"
+          >
+            Error: {{ signUpForm.controls.confirmPassword.errors | json }}
+          </p>
+        </div>
+
+        <app-untyped-profile [form]="profileFormGroup"></app-untyped-profile>
+
+        <p
+          *ngIf="
+            signUpForm.controls.password.touched &&
+            signUpForm.controls.confirmPassword.touched &&
+            signUpForm.errors?.['passwordMatch']
+          "
+          class="error"
+        >
+          Error: {{ signUpForm.errors | json }}
+        </p>
+      </div>
+
+      <p>Complete the form to enable button.</p>
+      <button [disabled]="signUpForm.invalid" type="submit">Submit</button>
+    </form>
+
+    <aside>
+      <header>
+        <h2>Form Value:</h2>
+      </header>
+      <pre><samp>{{ signUpFormValue$ | async | json }}</samp></pre>
+    </aside>
+  </section>
+</main>
