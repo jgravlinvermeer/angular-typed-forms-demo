@@ -1,0 +1,9 @@
+.error {
+  color: red;
+}
+
+h1,
+h2,
+aside {
+  margin: 0;
+}

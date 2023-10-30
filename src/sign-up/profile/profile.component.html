@@ -1,0 +1,27 @@
+<fieldset [formGroup]="form">
+  <legend>Profile</legend>
+
+  <div>
+    <label for="firstName">First Name: </label>
+    <input formControlName="firstName" id="firstName" type="text" />
+    <p
+      *ngIf="form.controls.firstName.touched && form.controls.firstName.errors"
+      class="error"
+    >
+      Error:
+      {{ form.controls.firstName.errors | json }}
+    </p>
+  </div>
+
+  <div>
+    <label for="lastName">Last Name: </label>
+    <input formControlName="lastName" id="lastName" type="text" />
+    <p
+      *ngIf="form.controls.lastName.touched && form.controls.lastName.errors"
+      class="error"
+    >
+      Error:
+      {{ form.controls.lastName.errors | json }}
+    </p>
+  </div>
+</fieldset>

@@ -1,4 +1,4 @@
-import { AsyncPipe, JsonPipe, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
   AbstractControl,
@@ -16,12 +16,13 @@ import {
   SignUpForm,
   SignUpFormValue,
 } from './sign-up-form';
+import { ProfileComponent } from './profile/profile.component';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css'],
-  imports: [ReactiveFormsModule, AsyncPipe, JsonPipe, NgIf],
+  imports: [CommonModule, ReactiveFormsModule, ProfileComponent],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

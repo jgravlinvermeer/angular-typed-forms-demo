@@ -52,39 +52,7 @@
           </p>
         </div>
 
-        <fieldset formGroupName="profile">
-          <legend>Profile</legend>
-
-          <div>
-            <label for="firstName">First Name: </label>
-            <input formControlName="firstName" id="firstName" type="text" />
-            <p
-              *ngIf="
-                signUpForm.controls.profile.controls.firstName.touched &&
-                signUpForm.controls.profile.controls.firstName.errors
-              "
-              class="error"
-            >
-              Error:
-              {{ signUpForm.controls.profile.controls.firstName.errors | json }}
-            </p>
-          </div>
-
-          <div>
-            <label for="lastName">Last Name: </label>
-            <input formControlName="lastName" id="lastName" type="text" />
-            <p
-              *ngIf="
-                signUpForm.controls.profile.controls.lastName.touched &&
-                signUpForm.controls.profile.controls.lastName.errors
-              "
-              class="error"
-            >
-              Error:
-              {{ signUpForm.controls.profile.controls.lastName.errors | json }}
-            </p>
-          </div>
-        </fieldset>
+        <app-profile [form]="signUpForm.controls.profile"></app-profile>
 
         <p
           *ngIf="
