@@ -1,4 +1,4 @@
-import {Form, FormControl, FormGroup} from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 export interface SignUpForm {
   email: FormControl<string>;
@@ -9,8 +9,7 @@ export interface SignUpForm {
 
 export interface ProfileForm {
   firstName: FormControl<string>;
-  lastName: FormControl<string|null>;
-  birthDate: FormControl<Date|null>;
+  lastName: FormControl<string | null>;
 }
 
 export interface SignUpFormValue {
@@ -22,9 +21,14 @@ export interface SignUpFormValue {
 
 export interface ProfileFormValue {
   firstName: string;
-  lastName: string|null;
-  birthDate: Date|null;
+  lastName: string | null;
 }
 
-export type PasswordConfirmForm = Pick<SignUpForm, 'password' | 'confirmPassword'>;
-export type PasswordConfirmFormValue = Pick<SignUpFormValue, 'password' | 'confirmPassword'>;
+export type PasswordConfirmForm = Pick<
+  SignUpForm,
+  'password' | 'confirmPassword'
+>;
+export type PasswordConfirmFormValue = Pick<
+  SignUpFormValue,
+  'password' | 'confirmPassword'
+>;

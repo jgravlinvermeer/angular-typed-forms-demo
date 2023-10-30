@@ -1,67 +1,114 @@
-<h1>Login:</h1>
+<header>
+  <h1>Sign up:</h1>
+</header>
 
-<form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="email">Email: </label>
-    <input id="email" type="text" formControlName="email" />
-    <p
-      *ngIf="
-        signUpForm.controls.email.touched && signUpForm.controls.email.errors
-      "
-      class="error"
-    >
-      Error: {{ signUpForm.controls.email.errors | json }}
-    </p>
-  </div>
+<main>
+  <section>
+    <form (ngSubmit)="onSubmit()" [formGroup]="signUpForm">
+      <div>
+        <label for="email">Email: </label>
+        <input formControlName="email" id="email" type="text" />
+        <p
+          *ngIf="
+            signUpForm.controls.email.touched &&
+            signUpForm.controls.email.errors
+          "
+          class="error"
+        >
+          Error: {{ signUpForm.controls.email.errors | json }}
+        </p>
+      </div>
 
-  <div>
-    <div>
-      <label for="password">Password: </label>
-      <input id="password" type="text" formControlName="password" />
-      <p
-              *ngIf="
-        signUpForm.controls.password.touched &&
-        signUpForm.controls.password.errors
-      "
-              class="error"
-      >
-        Error: {{ signUpForm.controls.password.errors | json }}
-      </p>
-    </div>
-
-    <div>
-      <label for="confirmPassword">Confirm Password: </label>
-      <input id="confirmPassword" type="text" formControlName="confirmPassword" />
-      <p
-              *ngIf="
-        signUpForm.controls.confirmPassword.touched &&
-        signUpForm.controls.confirmPassword.errors
-      "
-              class="error"
-      >
-        Error: {{ signUpForm.controls.confirmPassword.errors | json }}
-      </p>
-    </div>
-
-    <p
+      <div>
+        <div>
+          <label for="password">Password: </label>
+          <input formControlName="password" id="password" type="text" />
+          <p
             *ngIf="
-        signUpForm.controls.password.touched &&
-        signUpForm.controls.confirmPassword.touched &&
-        signUpForm.errors?.['passwordMatch']
-      "
+              signUpForm.controls.password.touched &&
+              signUpForm.controls.password.errors
+            "
             class="error"
-    >
-      Error: {{ signUpForm.errors | json }}
-    </p>
+          >
+            Error: {{ signUpForm.controls.password.errors | json }}
+          </p>
+        </div>
 
-<!--  TODO: Add rest of form  -->
-  </div>
+        <div>
+          <label for="confirmPassword">Confirm Password: </label>
+          <input
+            formControlName="confirmPassword"
+            id="confirmPassword"
+            type="text"
+          />
+          <p
+            *ngIf="
+              signUpForm.controls.confirmPassword.touched &&
+              signUpForm.controls.confirmPassword.errors
+            "
+            class="error"
+          >
+            Error: {{ signUpForm.controls.confirmPassword.errors | json }}
+          </p>
+        </div>
 
-  <p>Complete the form to enable button.</p>
-  <button type="submit" [disabled]="!signUpForm.valid">Submit</button>
-</form>
+        <fieldset formGroupName="profile">
+          <legend>Profile</legend>
 
-<hr />
+          <div>
+            <label for="firstName">First Name: </label>
+            <input formControlName="firstName" id="firstName" type="text" />
+            <p
+              *ngIf="
+                signUpForm.controls.profile.controls.firstName.touched &&
+                signUpForm.controls.profile.controls.firstName.errors
+              "
+              class="error"
+            >
+              Error:
+              {{ signUpForm.controls.profile.controls.firstName.errors | json }}
+            </p>
+          </div>
 
-<h2>Form Value:</h2>
-<pre>{{ loginFormValue$ | async | json }}</pre>
+          <div>
+            <label for="lastName">Last Name: </label>
+            <input formControlName="lastName" id="lastName" type="text" />
+            <p
+              *ngIf="
+                signUpForm.controls.profile.controls.lastName.touched &&
+                signUpForm.controls.profile.controls.lastName.errors
+              "
+              class="error"
+            >
+              Error:
+              {{ signUpForm.controls.profile.controls.lastName.errors | json }}
+            </p>
+          </div>
+        </fieldset>
+
+        <p
+          *ngIf="
+            signUpForm.controls.password.touched &&
+            signUpForm.controls.confirmPassword.touched &&
+            signUpForm.errors?.['passwordMatch']
+          "
+          class="error"
+        >
+          Error: {{ signUpForm.errors | json }}
+        </p>
+      </div>
+
+      <p>Complete the form to enable button.</p>
+      <button [disabled]="signUpForm.invalid" type="submit">Submit</button>
+    </form>
+  </section>
+
+  <hr />
+
+  <section>
+    <header>
+      <h2>Form Value:</h2>
+    </header>
+    <pre><samp>{{ signUpFormValue$ | async | json }}</samp></pre>
+  </section>
+</main>
