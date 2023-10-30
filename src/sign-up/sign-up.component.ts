@@ -63,6 +63,9 @@ export class SignUpComponent {
   );
 
   onSubmit() {
+    if (this.signUpForm.invalid) {
+      return;
+    }
     console.warn(this.signUpForm.value);
   }
 
