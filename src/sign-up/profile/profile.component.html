@@ -5,7 +5,7 @@
     <label for="firstName">First Name: </label>
     <input formControlName="firstName" id="firstName" type="text" />
     <p
-      *ngIf="form.controls.firstName.touched && form.controls.firstName.errors"
+      *ngIf="form.controls.firstName.touched && form.controls.firstName.invalid"
       class="error"
     >
       Error:
@@ -17,7 +17,7 @@
     <label for="lastName">Last Name: </label>
     <input formControlName="lastName" id="lastName" type="text" />
     <p
-      *ngIf="form.controls.lastName.touched && form.controls.lastName.errors"
+      *ngIf="form.controls.lastName.touched && form.controls.lastName.invalid"
       class="error"
     >
       Error:

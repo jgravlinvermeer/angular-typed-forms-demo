@@ -66,6 +66,36 @@ export class SignUpComponent {
     if (this.signUpForm.invalid) {
       return;
     }
+
+    // IMPORTANT:
+    // If you are subscribing to an observable, then make sure to unsubscribe in
+    // ngOnDestroy.
+    //
+    // Calling take(1)/first() or assuming an observable, such as an HTTP
+    // call, will automatically cleanup is not enough. They will prevent memory
+    // leaks but they will not prevent the subscribe method from being called
+    // after the component is destroyed. This will leak the side effects of the
+    // subscribe method, such as route navigation or showing a snackbar, that we
+    // don't want to continue after the user has navigated away.
+    //
+    // HOW TO FIX IT:
+    // Add the subscription returned from the subscribe method to a parent
+    // subscription using Subscription#add.
+    //
+    // The only exceptions are:
+    // 1. Observables exclusively used in the template. Don't even subscribe to
+    // these in the first place. Just use the async pipe.
+    // 2. Observables piped with takeUntil(otherObservable) where
+    // otherObservable is unsubscribed in ngOnDestroy
+    // 3. Observables from ActivatedRoute unless it's a nested or dynamic
+    // component
+    // 4. Observables that you truly want to run the side effect in the
+    // subscribe method after the component is destroyed. This is rare, but
+    // sometimes the logic calls for it.
+    // 5. You live in the glorious future when we've migrated to Angular 16 and
+    // can pipe in the takeUntilDestroyed function
+    // https://stackoverflow.com/a/51850733
+    // https://stackoverflow.com/a/51732897
     console.warn(this.signUpForm.value);
   }
 

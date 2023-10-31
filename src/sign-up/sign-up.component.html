@@ -11,7 +11,7 @@
         <p
           *ngIf="
             signUpForm.controls.email.touched &&
-            signUpForm.controls.email.errors
+            signUpForm.controls.email.invalid
           "
           class="error"
         >
@@ -20,54 +20,54 @@
       </div>
 
       <div>
-        <div>
-          <label for="password">Password: </label>
-          <input formControlName="password" id="password" type="text" />
-          <p
-            *ngIf="
-              signUpForm.controls.password.touched &&
-              signUpForm.controls.password.errors
-            "
-            class="error"
-          >
-            Error: {{ signUpForm.controls.password.errors | json }}
-          </p>
-        </div>
-
-        <div>
-          <label for="confirmPassword">Confirm Password: </label>
-          <input
-            formControlName="confirmPassword"
-            id="confirmPassword"
-            type="text"
-          />
-          <p
-            *ngIf="
-              signUpForm.controls.confirmPassword.touched &&
-              signUpForm.controls.confirmPassword.errors
-            "
-            class="error"
-          >
-            Error: {{ signUpForm.controls.confirmPassword.errors | json }}
-          </p>
-        </div>
-
-        <app-profile [form]="signUpForm.controls.profile"></app-profile>
-
+        <label for="password">Password: </label>
+        <input formControlName="password" id="password" type="text" />
         <p
           *ngIf="
+              signUpForm.controls.password.touched &&
+              signUpForm.controls.password.invalid
+            "
+          class="error"
+        >
+          Error: {{ signUpForm.controls.password.errors | json }}
+        </p>
+      </div>
+
+      <div>
+        <label for="confirmPassword">Confirm Password: </label>
+        <input
+          formControlName="confirmPassword"
+          id="confirmPassword"
+          type="text"
+        />
+        <p
+          *ngIf="
+              signUpForm.controls.confirmPassword.touched &&
+              signUpForm.controls.confirmPassword.invalid
+            "
+          class="error"
+        >
+          Error: {{ signUpForm.controls.confirmPassword.errors | json }}
+        </p>
+      </div>
+
+      <app-profile [form]="signUpForm.controls.profile"></app-profile>
+
+      <p
+        *ngIf="
             signUpForm.controls.password.touched &&
             signUpForm.controls.confirmPassword.touched &&
             signUpForm.errors?.['passwordMatch']
           "
-          class="error"
-        >
-          Error: {{ signUpForm.errors | json }}
-        </p>
-      </div>
+        class="error"
+      >
+        Error: {{ signUpForm.errors | json }}
+      </p>
 
       <p>Complete the form to enable button.</p>
-      <button [disabled]="signUpForm.invalid" type="submit">Submit</button>
+      <button [disabled]="signUpForm.pristine || signUpForm.invalid"
+              type="submit">Submit
+      </button>
     </form>
 
     <aside>
